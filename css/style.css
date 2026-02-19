@@ -1,584 +1,657 @@
 /* ==========================================================================
-   1. GLOBAL RESETS & BASE STYLES
-   These styles apply to the whole page to ensure consistency across browsers.
+    1. GLOBAL VARIABLES & RESETS
    ========================================================================== */
+/* :root declares CSS variables globally so they can be reused easily. If you want to change a theme color later, you only change it here once. */
+:root {
+    /* Background Colors */
+    --background-dark: #0f0f12;
+    --background-card: #1c1c24;
+    --background-input: #252530;
+    --background-input-focus: #2d2d3a;
+    --header-background: rgba(15, 15, 18, 0.95);
+    
+    /* Text Colors */
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --text-muted: #888888;
+    
+    /* Brand Colors & Gradients for specific accents */
+    --accent-blue: #4a88ff;
+    --accent-purple: #9b51e0;
+    --accent-pink: #ff4a9e;
+    --accent-gradient: linear-gradient(to right, var(--accent-blue), var(--accent-purple), var(--accent-pink));
+}
 
-/* Selects every element in the HTML */
+/* The universal selector (*) resets margins, padding, and forces border-box sizing across all elements for easier layout calculations */
 * {
-    margin: 0;              /* Remove default margin from all elements */
-    padding: 0;             /* Remove default padding */
-    box-sizing: border-box; /* Makes sure padding & border are included in width/height calculations */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Controls behavior for the whole HTML document */
 html {
-    scroll-behavior: smooth; /* Creates a smooth scrolling effect when clicking navigation links */
+    /* Enables native smooth scrolling when clicking anchor links in the nav */
+    scroll-behavior: smooth;
 }
 
-/* Basic text styling for the whole website body */
 body {
-    font-family: Arial, sans-serif; /* Sets the default font */
-    position: relative;             /* Allows us to position children elements absolutely if needed */
-    color: #333;                    /* Sets a dark gray text color (softer than pure black) */
+    font-family: Arial, sans-serif;
+    position: relative;
+    color: var(--text-secondary);
 }
 
 /* ==========================================================================
-   2. HEADER / NAVBAR STYLES
-   Controls the top navigation bar that stays fixed at the top of the screen.
+    2. HEADER / NAVBAR STYLES
    ========================================================================== */
-
 header {
-    width: 100%;             /* Spans the full width of the screen */
-    height: 80px;            /* Fixed height for the navbar */
-    background-color: white; /* White background */
-    
-    /* These lines make the header stick to the top */
+    width: 100%;
+    height: 80px;
+    background-color: var(--header-background);
+    /* fixed position keeps it glued to the top of the screen as you scroll */
     position: fixed;
     top: 0;
     left: 0;
-    
-    z-index: 1000;                      /* Ensures the header stays on top of all other content */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adds a subtle shadow under the navbar */
+    /* z-index ensures it sits visually on top of all other content */
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
 }
 
-/* Wrapper inside header to align content and limit width */
 .header-content {
-    max-width: 1500px;           /* Prevents content from stretching too wide on huge screens */
-    height: 100%;                /* Takes up the full 80px height of the header */
-    margin: 0 auto;              /* Centers the container horizontally */
-    padding: 0 50px;             /* Adds space on the left and right sides */
-    
-    /* Flexbox layout to align Logo (left) and Nav (right) */
+    max-width: 1500px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 50px;
+    /* Flexbox used to push logo to the left and nav links to the right */
     display: flex;
     justify-content: space-between; 
-    align-items: center;         /* Vertically centers the items */
+    align-items: center;
 }
 
-/* --- LOGO AREA --- */
 .header-logo {
-    display: flex;       /* Puts image and text side-by-side */
-    align-items: center; /* Vertically centers them */
-    cursor: pointer;     /* Changes mouse cursor to a hand pointer */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
-/* Circular container for the logo image */
 .header-logo-image {
-    width: 50px;           /* Fixed width */
-    height: 50px;          /* Fixed height */
-    border-radius: 50%;    /* Turns the square box into a perfect circle */
-    margin-right: 15px;    /* Adds space between the image and the text */
-    overflow: hidden;      /* Hides any part of the image that sticks out */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Makes the container perfectly round */
+    margin-right: 15px;
+    overflow: hidden; /* Ensures the square image inside doesn't poke out of the rounded corners */
 }
 
+/* Forces the image to cover the full container without warping */
 .header-logo-image img {
-    width: 100%;           /* Image fills the container width */
-    height: 100%;          /* Image fills the container height */
-    object-fit: cover;     /* Ensures image covers the circle without stretching/distortion */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* Logo text styling */
 .header-logo-text {
-    font-size: 16px;           /* Sets font size for logo name */
-    font-weight: bold;         /* Makes the logo name bold */
-    text-transform: uppercase; /* Forces text to be ALL CAPS */
-    letter-spacing: 1px;       /* Adds slight spacing between letters */
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-primary);
 }
 
-/* --- NAVIGATION MENU (Desktop) --- */
 .header-navigation ul {
-    display: flex;    /* Lays out the links in a horizontal row */
-    gap: 40px;        /* Adds space between each menu item */
-    list-style: none; /* Removes the default bullet points */
+    display: flex;
+    gap: 40px;
+    list-style: none; /* Removes bullet points */
 }
 
-/* Styling for the links (Home, About, etc.) */
 .header-navigation a {
-    text-decoration: none;      /* Removes the underline */
-    font-size: 16px;            /* Sets navigation link font size */
-    font-weight: bold;          /* Makes navigation links bold */
-    color: #333;                /* Dark gray color for links */
-    transition: color 0.3s ease; /* smooths the color change when hovering */
+    text-decoration: none; /* Removes underline */
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-primary);
+    transition: all 0.3s ease; /* Smooth transition when hovering */
 }
 
-/* Change color when mouse hovers over link */
+/* Hover effect for links: applies the gradient background but clips it to only show through the text shape */
 .header-navigation a:hover {
-    color: #7843e9; /* Turns purple on hover */
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
-/* --- MOBILE MENU (Hamburger Icon) --- */
+/* Hamburger icon hidden on desktop, revealed in media query for mobile */
 .mobile-menu-icon {
-    display: none;        /* Hidden by default on desktop computers */
-    cursor: pointer;      /* Shows pointer cursor on interaction */
-    flex-direction: column; /* Stacks the 3 bars vertically */
-    gap: 5px;             /* Space between the bars */
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
 }
 
-/* The visual bars of the hamburger icon */
 .bar {
-    width: 25px;              /* Sets width of icon bar */
-    height: 3px;              /* Sets thickness of icon bar */
-    background-color: #333;   /* Dark gray color for the bars */
-    display: block;           /* Ensures bar behaves as a block element */
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-primary);
+    display: block;
 }
 
-/* Hidden checkbox used for CSS-only toggle logic */
+/* The actual checkbox used to control state, hidden from view */
 #menu-toggle {
-    display: none; /* The checkbox is invisible, but we listen for its 'checked' state */
+    display: none;
 }
 
 /* ==========================================================================
-   3. MAIN BACKGROUND & SECTIONS
-   Styles for the background image and general section layouts.
+    3. MAIN BACKGROUND & SECTIONS
    ========================================================================== */
+/* Canvas needs to sit behind everything, fixed to the screen */
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Pushes it to the back layer */
+    background-color: var(--background-dark);
+    pointer-events: none; /* Allows clicks to pass through the canvas to elements underneath */
+}
 
 .main-content {
-    width: 100%;                  /* Occupies full width of its parent */
-    background-image: url('../images/whiteBackground.png'); /* Background image path */
-    background-size: cover;       /* Ensures image covers entire background */
-    background-position: center;  /* Centers the image */
-    background-attachment: fixed; /* Parallax effect: Image stays still while you scroll */
+    width: 100%;
+    background-color: transparent;
 }
 
-/* General style for every section (Home, About, Skills, etc.) */
 .section {
-    padding: 80px 20px;         /* Adds breathing room top/bottom and sides */
-    text-align: center;         /* Centers text by default */
-    scroll-margin-top: 100px;   /* Ensures the fixed header doesn't cover the section title when clicking links */
+    padding: 80px 20px;
+    text-align: center;
+    /* scroll-margin-top ensures the fixed header doesn't cover section titles when anchor links jump down */
+    scroll-margin-top: 100px;
 }
 
-/* Container to keep section content from getting too wide */
 .section-container {
-    max-width: 1172px;          /* Restricts max width of the container content */
-    margin: 0 auto;             /* Centers the container horizontally */
+    max-width: 1172px;
+    margin: 0 auto; /* Centers the container horizontally */
 }
 
-/* --- SECTION TITLES --- */
+/* Applies the gradient text effect specifically to the big section headers */
 .section-title {
-    font-size: 36px;            /* Large font for section headings */
-    color: black;               /* Pure black color for titles */
-    margin-bottom: 10px;        /* Space below the title text */
-    text-transform: uppercase;  /* Forces titles to be uppercase */
-    letter-spacing: 2px;        /* Increases spacing between heading letters */
-    position: relative;         /* Needed for the underline (::after) positioning */
-    display: inline-block;      /* Ensures the width matches the text length */
-}
-
-/* The decorative cyan line underneath titles */
-.section-title::after {
-    content: '';                /* Required for pseudo-elements */
-    display: block;             /* Makes the line visible */
-    width: 70px;                /* Length of the line */
-    height: 4px;                /* Thickness of the line */
-    background-color: #3ce7de;  /* Cyan color */
-    margin: 8px auto 0;         /* Centers the line below the text */
-    border-radius: 2px;         /* Rounds the edges of the line */
+    font-size: 36px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: inline-block;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;                   
 }
 
 .section-subtitle {
-    font-size: 18px;            /* Standard subtitle font size */
-    color: #666;                /* Gray color */
-    margin-bottom: 50px;        /* large space below subtitle before content starts */
+    font-size: 18px;
+    color: var(--text-muted);
+    margin-bottom: 50px;
 }
 
 /* ==========================================================================
-   4. HOME SECTION
-   Specific styles for the hero/introduction area.
+    4. UNIFIED ANIMATED SNAKE BUTTONS
+   ========================================================================== */
+/* Base setup for the animated border button */
+.snake-button {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: var(--background-card); 
+    color: var(--text-primary);
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    overflow: hidden; /* Hides the spinning conic gradient outside the button's shape */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    cursor: pointer;
+    z-index: 1;
+}
+
+/* The pseudo-element that creates the spinning gradient background (the 'snake') */
+.snake-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    aspect-ratio: 1; 
+    /* Conic gradient sweeps around a central point */
+    background: conic-gradient(from 0deg, transparent 70%, var(--accent-purple) 100%);
+    /* Triggers the keyframe animation created below */
+    animation: snake-rotate 3s linear infinite;
+    z-index: -2; /* Sits at the very bottom inside the button */
+}
+
+/* The inner card shape that blocks out the middle, leaving only the spinning border visible */
+.snake-button::after {
+    content: '';
+    position: absolute;
+    inset: 3px; /* Creates the 3px border gap where the 'snake' shines through */
+    background-color: var(--background-card);
+    border-radius: 2px;
+    z-index: -1; /* Sits above the spinning gradient but below the text */
+    transition: background-color 0.3s ease;
+}
+
+/* When hovering, darken the inner body of the button slightly */
+.snake-button:hover::after {
+    background-color: var(--background-input-focus);
+}
+
+.button-text {
+    position: relative;
+    z-index: 1; /* Ensures text is on top of the inner card */
+}
+
+/* Keyframe definition for the continuous 360-degree spin */
+@keyframes snake-rotate {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ==========================================================================
+    5. SECTIONS (Home, About, Skills, Projects, Contact)
    ========================================================================== */
 
+/* --- HOME --- */
 .home-section {
-    margin-top: 80px;               /* Pushes it down so it's not hidden behind the header */
-    min-height: calc(100vh - 80px); /* Forces section to fill the screen (View Height - Header Height) */
-    
-    /* Flexbox to center everything perfectly in the middle of the screen */
+    margin-top: 80px; /* Accounts for fixed header height */
+    min-height: calc(100vh - 80px); /* Takes up full screen height minus header */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .home-container {
-    display: flex;          /* Enables Flexbox for home content alignment */
-    flex-direction: column; /* Stacks items vertically */
-    align-items: center;    /* Centers children horizontally */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Container for Avatar + Name */
 .home-introduction {
-    display: flex;          /* Aligns avatar and title in a row */
-    align-items: center;    /* Vertically aligns image and text */
-    gap: 30px;              /* Space between avatar and text */
-    margin-bottom: 20px;    /* Space below the intro row */
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 20px;
 }
 
-/* Profile Picture Styling */
 .home-avatar {
-    width: 225px;                          /* Set specific width for avatar */
-    height: 225px;                         /* Set specific height for avatar */
-    border: 5px solid white;               /* White ring around image */
-    border-radius: 50%;                    /* Makes it a circle */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* Drop shadow for depth */
-    overflow: hidden;                      /* Keeps image inside the circular border */
+    width: 225px;
+    height: 225px;
+    border: 5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    overflow: hidden;
 }
 
 .home-avatar img {
-    width: 100%;            /* Fills container width */
-    height: 100%;           /* Fills container height */
-    object-fit: cover;      /* Maintains aspect ratio while filling circle */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* Big "Hi, I'm..." Text */
 .home-title {
-    font-size: 54px;        /* Large hero text size */
-    font-weight: 800;       /* Extra bold */
-    text-align: left;       /* Aligns text to the left within its box */
+    font-size: 54px;
+    font-weight: 800;
+    text-align: left;
+    color: var(--text-primary);
 }
 
-/* Description text under the title */
 .home-description {
-    font-size: 20px;        /* Readable font size for intro text */
-    margin-bottom: 40px;    /* Space before the projects button */
-    max-width: 600px;       /* Keeps text from spanning too wide */
-    color: #555;            /* Medium gray text */
-    font-weight: 500;       /* Medium font weight */
+    font-size: 20px;
+    margin-bottom: 40px;
+    max-width: 600px;
+    color: var(--text-secondary);
+    font-weight: 500;
 }
-
-/* Button Styling (Used for "My Projects" and "Visit" buttons) */
-.home-buttons a, .button-link {
-    display: inline-block;          /* Allows us to add padding/margins to the link */
-    background-color: #1181dd;      /* Default Blue background */
-    color: white;                   /* White text on button */
-    padding: 15px 40px;             /* Makes the button big and clickable */
-    border-radius: 5px;             /* Rounded corners */
-    text-decoration: none;          /* Removes default underline */
-    font-weight: bold;              /* Makes button text bold */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15); /* Adds elevation effect */
-    transition: transform 0.2s;     /* Smooth movement on hover */
-}
-
-.home-buttons a:hover, .button-link:hover {
-    transform: translateY(-3px);    /* Moves button slightly up when hovered */
-}
-
-/* ==========================================================================
-   5. CONTENT SECTIONS (About, Skills, Projects, Contact)
-   ========================================================================== */
 
 /* --- ABOUT --- */
 .about-section {
-    background-color: transparent; /* Allows main background to show */
+    background-color: transparent;
 }
 
 .about-text {
-    font-size: 20px;    /* Sets body text size for about section */
-    max-width: 800px;   /* Restricts paragraph width for readability */
-    margin: 0 auto;     /* Centers block text */
-    line-height: 1.6;   /* Increases space between lines for readability */
-    color: #444;        /* Dark gray text */
+    font-size: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    color: var(--text-secondary);
 }
 
 /* --- SKILLS --- */
 .skills-grid {
-    display: grid;                          /* Uses CSS Grid layout */
-    grid-template-columns: 1.5fr 1fr 1fr;   /* Creates 3 columns (first one is wider) */
-    gap: 20px;                              /* Space between grid items */
-    max-width: 800px;                       /* Limits the width of the grid */
-    margin: 50px auto 0;                    /* Centers the grid and adds space above */
+    display: grid;
+    /* First column is slightly wider (1.5fr) compared to the others to handle the big Python block */
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 20px;
+    max-width: 800px;
+    margin: 50px auto 0;
 }
 
-/* General design for all skill cards */
 .skill-card {
-    background-color: #fff;                 /* White background for cards */
-    padding: 30px;                          /* Internal padding for card content */
-    border-radius: 8px;                     /* Rounded corners for cards */
-    font-weight: bold;                      /* Bold font for skill names */
-    font-size: 18px;                        /* Standard card text size */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);  /* Light shadow for card depth */
-    
-    /* Center text inside card */
+    background-color: var(--background-card);
+    padding: 30px;                          
+    border-radius: 8px;                     
+    font-weight: bold;                      
+    font-size: 18px;                        
+    border: 2px solid transparent; 
+    letter-spacing: 1px;
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    transition: transform 0.3s ease;        /* Smooth transition for interaction effects */
+    cursor: default;     
 }
 
-/* Specific styling for Python Card (The large split-color card) */
+/* Python Glow - Half Blue / Half Yellow */
 .skill-python {
-    grid-column: 1 / 2; /* Occupies the first column */
-    grid-row: 1 / 3;    /* Spans across 2 rows vertically */
-    font-size: 24px;    /* Larger text for main skill */
-    color: white;       /* White text to contrast with background */
-    /* Creates the diagonal split background (Blue and Yellow) */
-    background: linear-gradient(151deg, #3776AB 50%, #FFD43B 50%);
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Adds readability to text over gradient */
+    /* Forces this card to span the first column and take up 2 rows */
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    font-size: 24px;
+    color: var(--text-primary);
+    
+    /* Replaced 135deg with "to bottom right" for a perfect responsive split */
+    background: linear-gradient(var(--background-card), var(--background-card)) padding-box,
+                linear-gradient(to bottom right, #3776AB 50%, #FFD43B 50%) border-box;
+    border: 2px solid transparent;
+    
+    /* Combined glow: Blue casting up/left, Yellow casting down/right */
+    box-shadow: -8px -8px 25px rgba(55, 118, 171, 0.5), 8px 8px 25px rgba(255, 212, 59, 0.5);
 }
 
-/* Other specific skill colors */
-.skill-js {
-    background-color: #F7DF1E; /* Yellow brand color for JS */
-    color: #000;               /* Black text for contrast */
+.python-text {
+    /* Shifted the split from 50% to 48% to perfectly clear the 'H' */
+    background: linear-gradient(to right, #3776AB 48%, #FFD43B 48%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
-.skill-react {
-    background-color: #61DAFB; /* Cyan brand color for React */
-    color: #333131;            /* Dark text for contrast */
+/* JavaScript Glow - Yellow (Static) */
+.skill-js { 
+    color: #F7DF1E; 
+    border-color: #F7DF1E;
+    /* Outer glow and inner shadow for depth */
+    box-shadow: 0 0 20px rgba(247, 223, 30, 0.6), inset 0 0 12px rgba(247, 223, 30, 0.3);
 }
 
-.skill-go {
-    background-color: #00ADD8; /* Light blue brand color for Go */
-    color: #fff;               /* White text for contrast */
+/* React Glow - Light Blue (Static) */
+.skill-react { 
+    color: #61DAFB; 
+    border-color: #61DAFB;
+    box-shadow: 0 0 20px rgba(97, 218, 251, 0.6), inset 0 0 12px rgba(97, 218, 251, 0.3);
 }
 
-.skill-rust {
-    background-color: #B7410E; /* Orange-red brand color for Rust */
-    color: #000;               /* Black text for contrast */
+/* Go Glow - Cyan (Static) */
+.skill-go { 
+    color: #00ADD8; 
+    border-color: #00ADD8;
+    box-shadow: 0 0 20px rgba(0, 173, 216, 0.6), inset 0 0 12px rgba(0, 173, 216, 0.3);
+}
+
+/* Rust Glow - Orange (Static) */
+.skill-rust { 
+    color: #e55315; 
+    border-color: #e55315;
+    box-shadow: 0 0 20px rgba(229, 83, 21, 0.6), inset 0 0 12px rgba(229, 83, 21, 0.3);
 }
 
 /* --- PROJECTS --- */
 .project-card {
-    display: flex;                  /* Side-by-side layout */
-    align-items: center;            /* Vertically centers image and text info */
-    justify-content: center;        /* Horizontally centers card contents */
-    gap: 50px;                      /* Space between image and text */
-    margin-bottom: 80px;            /* Space between different projects */
-    text-align: left;               /* Aligns text to the left */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 80px;
+    text-align: left;
 }
 
 .project-image {
-    flex: 1;                        /* Takes up 50% width */
-    max-width: 500px;               /* Limits size of the project image */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Strong shadow for project showcase */
-    border-radius: 10px;            /* Matches card corner style */
-    overflow: hidden;               /* Crops image if it's too big */
+    flex: 1; /* Allows it to take up proportional space next to information */
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .project-image img {
-    width: 100%;        /* Fills container width */
-    display: block;     /* Removes tiny whitespace under images */
+    width: 100%;
+    display: block; /* Removes tiny extra space below image inside container */
 }
 
 .project-information {
-    flex: 1;                        /* Takes up 50% width */
-    max-width: 500px;               /* Limits width of description area */
+    flex: 1;
+    max-width: 500px;
 }
 
 .project-title {
-    font-size: 28px;        /* Large font for project name */
-    font-weight: 800;       /* Extra bold font weight */
-    margin-bottom: 15px;    /* Space before description */
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: var(--text-primary);
 }
 
 .project-description {
-    font-size: 16px;        /* Standard description text size */
-    color: #666;            /* Gray text for description */
-    line-height: 1.6;       /* Increased spacing for readability */
-    margin-bottom: 30px;    /* Space before the visit button */
-}
-
-/* Purple color specifically for project buttons */
-.button-link {
-    background-color: #7843e9; /* Overrides default blue with purple */
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 30px;
 }
 
 /* --- CONTACT FORM --- */
 .contact-box {
-    background-color: white;                /* White background for the form area */
-    padding: 40px;                          /* Large internal padding */
-    border-radius: 10px;                    /* Rounded corners */
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); /* Deep shadow to pop off background */
-    max-width: 700px;                       /* Limits form width */
-    margin: 0 auto;                         /* Centers the form box */
-    text-align: left; /* Form labels align left */
+    background-color: var(--background-card);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: left;
 }
 
 .input-group {
-    margin-bottom: 20px; /* Space between different input fields */
+    margin-bottom: 20px;
 }
 
 .input-group label {
-    display: block; /* Forces label to be on its own line above input */
-    font-weight: bold;      /* Makes labels bold */
-    margin-bottom: 8px;     /* Space between label and input */
-    color: #555;            /* Gray color for labels */
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #dddddd;
 }
 
+/* Targeting both basic inputs and text areas together to keep styles identical */
 .input-group input, .input-group textarea {
-    width: 100%;            /* Input fills the container */
-    padding: 15px;          /* Large padding for easier typing */
-    background-color: #f0f0f0; /* Light gray input background */
-    border: 2px solid transparent; /* Transparent border until focused */
-    border-radius: 5px;     /* Subtle rounded corners for inputs */
-    font-family: inherit;   /* Uses body font family */
-    font-size: 16px;        /* Sets font size for user input */
-    outline: none;          /* Removes default browser outline */
+    width: 100%;
+    padding: 15px;
+    background-color: var(--background-input);
+    color: var(--text-primary);
+    border: 2px solid transparent; /* Transparent so layout doesn't shift when focused/errored */
+    border-radius: 5px;
+    font-family: inherit; /* Ensures it uses the body font instead of default browser input font */
+    font-size: 16px;
+    outline: none;
 }
 
 .input-group textarea {
-    height: 150px;          /* Makes the message box taller */
-    resize: none;           /* Prevents user from dragging to resize */
+    height: 150px;
+    resize: none; /* Prevents user from dragging to resize corner */
 }
 
-/* Change style when user clicks inside the input */
 .input-group input:focus, .input-group textarea:focus {
-    background-color: #fff; /* Changes to white background when typing */
-    border-color: #7843e9;  /* Highlights border with purple */
+    background-color: var(--background-input-focus);
+    border-color: var(--accent-purple);
 }
 
 .submit-button-container {
-    text-align: right;      /* Aligns submit button to the right */
-}
-
-.button-submit {
-    background-color: #7843e9;      /* Purple background for submit */
-    color: white;                   /* White text on submit button */
-    padding: 15px 40px;             /* Large clickable area */
-    border: none;                   /* Removes default button border */
-    border-radius: 5px;             /* Rounded corners */
-    font-weight: bold;              /* Makes text bold */
-    font-size: 16px;                /* Standard button text size */
-    cursor: pointer;                /* Hand icon on hover */
-    transition: background-color 0.3s, transform 0.2s; /* Smooth hover transition */
-}
-
-.button-submit:hover {
-    background-color: #6030c0;   /* Darker purple on hover */
-    transform: translateY(-2px); /* Slight lift */
+    text-align: right;
 }
 
 /* ==========================================================================
-   6. FOOTER SECTION
+    6. FOOTER SECTION
    ========================================================================== */
-
 .footer {
-    background-color: #000; /* Black background */
-    color: #fff;            /* White text */
-    padding: 60px 20px 20px; /* Large top padding, smaller bottom padding */
-    text-align: center;      /* Centers footer content */
+    background-color: #000;
+    color: var(--text-primary);
+    padding: 60px 20px 20px;
+    text-align: center;
 }
 
 .footer-title {
-    font-size: 18px;        /* Font size for footer headers */
-    margin-bottom: 20px;    /* Space before social icons */
-    letter-spacing: 2px;    /* Widely spaced footer titles */
+    font-size: 18px;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
 }
 
 .footer-icons {
-    display: flex;          /* Aligns social icons in a row */
-    justify-content: center; /* Centers social icons horizontally */
-    gap: 30px;              /* Space between each social icon */
-    margin-bottom: 40px;    /* Space before copyright text */
-    align-items: center;    /* Vertically aligns icons */
-}
-
-.footer-icons a {
-    text-decoration: none;      /* Removes link underline */
-    transition: transform 0.3s; /* Smooth lift on hover */
-}
-
-.footer-icons a:hover {
-    transform: translateY(-3px); /* Lifts icon up slightly on hover */
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+    align-items: center;
 }
 
 .social-image {
-    width: 30px;       /* Sets icon width */
-    height: 30px;      /* Sets icon height */
-    filter: invert(1); /* Inverts colors (Black icons become White) */
+    width: 30px;
+    height: 30px;
+    filter: invert(1); /* Turns black icons white */
 }
 
 .footer-copyright {
-    border-top: 1px solid #333; /* Adds a thin divider line */
-    padding-top: 20px;          /* Space between line and text */
-    color: #bbb;                /* Light gray for copyright text */
+    border-top: 1px solid #333;
+    padding-top: 20px;
+    color: #bbb;
 }
 
 .footer-copyright p {
-    font-size: 12px; /* Small font size for copyright notice */
+    font-size: 12px;
 }
 
 /* ==========================================================================
-   7. RESPONSIVENESS (Mobile & Tablet)
-   Media Queries change the layout based on screen size.
+    7. RESPONSIVENESS (Mobile & Tablet)
    ========================================================================== */
 
-/* Tablet (Screens smaller than 1024px) */
+/* Triggers when screen is smaller than 1024px (Tablets) */
 @media (max-width: 1024px) {
-    .header-content {
-        padding: 0 30px; /* Reduces side padding on header */
-    }
-    .home-title {
-        font-size: 42px; /* Makes the main title slightly smaller */
-    }
+    .header-content { padding: 0 30px; }
+    .home-title { font-size: 42px; } /* Shrink main text slightly */
 }
 
-/* Mobile (Screens smaller than 768px) */
+/* Triggers when screen is smaller than 768px (Mobile phones) */
 @media (max-width: 768px) {
-    
     /* Show the hamburger menu icon */
-    .mobile-menu-icon {
-        display: flex; /* Makes the hamburger icon visible on mobile */
-    }
+    .mobile-menu-icon { display: flex; }
 
-    /* Hide the normal navigation links */
+    /* Hide standard nav links and set them up as a dropdown menu */
     .header-navigation {
-        display: none;          /* Hidden by default */
-        position: absolute;     /* Takes it out of normal flow */
-        top: 80px;              /* Puts it directly below header */
-        left: 0;                /* Aligns menu to the left edge */
-        width: 100%;            /* Spans full mobile width */
-        background-color: white; /* Mobile menu background */
-        box-shadow: 0 5px 10px rgba(0,0,0,0.1); /* Small shadow for mobile menu */
-        padding: 20px 0;        /* Space inside mobile menu */
+        display: none;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: rgba(15, 15, 18, 0.98);
+        box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+        padding: 20px 0;
     }
 
-    /* MAGIC: When the invisible checkbox (#menu-toggle) is CHECKED, 
-       find the neighbor (.header-navigation) and display it */
-    #menu-toggle:checked ~ .header-navigation {
-        display: block; /* Shows menu when hamburger is toggled */
-    }
+    /* CSS Trick: If the hidden checkbox is checked, force the nav to display block */
+    #menu-toggle:checked ~ .header-navigation { display: block; }
 
-    /* Stack links vertically for mobile */
+    /* Stack links vertically in the dropdown */
     .header-navigation ul {
-        flex-direction: column; /* Vertical link layout */
-        gap: 20px;              /* Space between vertical links */
-        text-align: right;      /* Aligns mobile links to the right */
-        padding-right: 50px;    /* Indent from the right edge */
-        padding-left: 0;        /* Resets left padding */
+        flex-direction: column;
+        gap: 20px;
+        text-align: right;
+        padding-right: 50px;
+        padding-left: 0;
     }
 
-    /* Stack Home section (Avatar above Text) */
+    /* Stack the hero section items (image on top, text below) */
     .home-introduction {
-        flex-direction: column; /* Vertical hero layout on mobile */
-        text-align: center;     /* Centers hero content */
+        flex-direction: column;
+        text-align: center;
     }
     
     .home-title {
-        text-align: center; /* Centers title on mobile */
-        font-size: 36px;    /* Smaller font for mobile screens */
+        text-align: center;
+        font-size: 36px;
     }
 
     .home-description {
-        text-align: center; /* Centers description on mobile */
-        padding: 0 20px;    /* Side padding for readability */
+        text-align: center;
+        padding: 0 20px;
     }
 
-    /* Make skills a single column list */
-    .skills-grid {
-        grid-template-columns: 1fr; /* Switches to 1 column grid */
-    }
+    /* Force the skill grid into a single vertical column */
+    .skills-grid { grid-template-columns: 1fr; }
 
-    /* Python card behaves normally in single column */
+    /* Reset the Python block so it behaves like a normal single item on mobile */
     .skill-python {
-        grid-column: auto; /* Resets column span */
-        grid-row: auto;    /* Resets row span */
-        background: linear-gradient(to bottom right, #3776AB 50%, #FFD43B 50%); /* Adjusts gradient for vertical layout */
+        grid-column: auto;
+        grid-row: auto;
     }
 
-    /* Stack Project card (Image above Text) */
+    /* Stack project cards vertically (image top, info bottom) */
     .project-card {
-        flex-direction: column; /* Vertical project card layout */
-        text-align: center;     /* Centers project info */
+        flex-direction: column;
+        text-align: center;
     }
 
-    .project-information {
-        text-align: center; /* Centers text details for projects on mobile */
+    .project-information { text-align: center; }
+}
+
+/* ==========================================================================
+    8. NOTIFICATION TOAST
+   ========================================================================== */
+.notification-toast {
+    position: fixed;
+    /* Hide off-screen by pushing it down 100px */
+    bottom: -100px; 
+    left: 50%;
+    /* -50% translation perfectly centers fixed items when combined with left:50% */
+    transform: translateX(-50%); 
+    background-color: var(--background-card);
+    color: var(--text-primary);
+    padding: 15px 30px;
+    border-radius: 8px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+    z-index: 2000; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    /* Cubic bezier creates a slight bounce effect when animating in */
+    transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    border-left: 5px solid transparent; 
+}
+
+/* Class appended by JavaScript to trigger the animation */
+.notification-toast.show {
+    bottom: 40px; /* Brings it on-screen */
+}
+
+/* Dynamic classes added by JS based on success/fail context */
+.notification-toast.success {
+    border-left-color: #00b894; /* Green indicator stripe */
+}
+
+.notification-toast.error {
+    border-left-color: #d63031; /* Red indicator stripe */
+}
+
+@media (max-width: 768px) {
+    .notification-toast {
+        width: 90%; 
+        text-align: center;
+        padding: 15px 20px;
     }
 }
