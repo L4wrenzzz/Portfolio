@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // API Submission Logic (If all validation passes)
             
             // Change button text to give user feedback that something is happening
-            submitButtonTextElement.innerText = "SENDING";
+            submitButtonTextElement.innerText = "SENDING...";
             
             // FormData automatically collects all the input names and values from the form
             const formSubmissionDataObject = new FormData(userContactFormElement);
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 // Status 200 means HTTP OK (Success)
                 if (apiResponse.status === 200) {
-                    displayNotificationToast("Thank you! Your message has been sent.", "success");
+                    displayNotificationToast("Awesome! Your message has been sent.", "success");
                     userContactFormElement.reset(); // Clear out the form fields
                 } else {
                     // If the server rejected it for some reason, show the error message provided by the API
