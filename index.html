@@ -1,45 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Character encoding -->
     <meta charset="UTF-8">
-    <!-- Makes the site responsive on mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Page title shown on browser tab -->
     <title>Portfolio - Jhon Lorrence</title>
-    <!-- Link to external CSS file -->
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-    <!-- ================= HEADER / NAVIGATION BAR ================= -->
+    <canvas id="particleCanvas"></canvas>
+    
     <header>
-        <!-- Container for logo + navigation -->
         <div class="header-content">
 
-            <!-- LOGO SECTION -->
             <div class="header-logo">
-                
-                <!-- Circular container for profile/logo image -->
                 <div class="header-logo-image">
-                    <img src="images/luffyProfilePlaceholder.png" alt="Logo" />
+                    <img src="images/profilePicture.png" alt="Profile Picture of Jhon Lorrence Sangalang" />
                 </div>
-
-                <!-- Name text beside logo -->
-                <span class="header-logo-text">JHON LORRENCE D. SANGALANG</span>
+                <span class="header-logo-text">JHON LORRENCE SANGALANG</span>
             </div>
 
-            <!-- Mobile menu icon -->
             <label class="mobile-menu-icon" for="menu-toggle">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </label>
 
-            <!-- Hidden checkbox to toggle mobile menu -->
             <input type="checkbox" id="menu-toggle" />
 
-            <!-- Navigation links -->
             <nav class="header-navigation">
                 <ul>
                     <li><a href="#home" class="navigation-link">HOME</a></li>
@@ -53,44 +41,35 @@
         </div>
     </header>
 
-    <!-- ================= MAIN CONTENT ================= -->
     <main class="main-content">
 
-        <!-- HOME SECTION -->
         <section class="section home-section" id="home">
             <div class="home-container">
 
-                <!-- Intro section (avatar + name) -->
                 <div class="home-introduction">
-                    
-                    <!-- Profile picture -->
                     <div class="home-avatar">
-                        <img src="images/luffyProfilePlaceholder.png" alt="Profile Picture" />
+                        <img src="images/profilePicture.png" alt="Profile Picture of Jhon Lorrence Sangalang" />
                     </div>
-
-                    <!-- Big title -->
-                    <h1 class="home-title">Hi, I'm Jhon Lorrence D. Sangalang.</h1>
+                    <h1 class="home-title">Hi, I'm Jhon Lorrence Sangalang.</h1>
                 </div>
 
-                <!-- Short description -->
                 <p class="home-description">
                     I want to be a Backend Developer in the future. Could be a Full-Stack Developer as well.
                 </p>
 
-                <!-- Button area -->
                 <div class="home-buttons">
-                    <a href="#projects">MY PROJECTS</a>
+                    <a href="#projects" class="snake-button">
+                        <span class="button-text">MY PROJECTS</span>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- ABOUT SECTION -->
         <section class="section about-section" id="about">
             <div class="section-container">
                 <h2 class="section-title">ABOUT ME</h2>
                 <h3 class="section-subtitle">Get to know me better</h3>
 
-                <!-- About paragraph -->
                 <p class="about-text">
                     I am Jhon Lorrence Sangalang, a student aspiring to become a skilled web developer. I am passionate about creating efficient and user-friendly web applications.
                     I am eager to learn and grow in the field of web development, and I am excited about the opportunities that lie ahead.
@@ -101,50 +80,40 @@
             </div>
         </section>
 
-        <!-- SKILLS SECTION -->
         <section class="section skills-section" id="skills">
             <div class="section-container">
                 <h2 class="section-title">MY SKILLS</h2>
 
-                <!-- Grid container for skill cards -->
                 <div class="skills-grid">
-
-                    <!-- Each card is a skill -->
-                    <div class="skill-card skill-python">PYTHON</div>
+                    <div class="skill-card skill-python"><span class="python-text">PYTHON</span></div>
                     <div class="skill-card skill-js">JavaScript</div>
                     <div class="skill-card skill-react">React</div>
                     <div class="skill-card skill-go">Go</div>
                     <div class="skill-card skill-rust">Rust</div>
-
                 </div>
             </div>
         </section>
 
-        <!-- PROJECTS SECTION -->
         <section class="section projects-section" id="projects">
             <div class="section-container">
                 <h2 class="section-title">PROJECTS</h2>
                 <p class="section-subtitle">Here are some of my personal works.</p>
 
-                <!-- Project Card -->
                 <div class="project-card">
-                    
-                    <!-- Project image -->
                     <div class="project-image">
                         <img src="images/guessIt.png" alt="GuessIt Project" />
                     </div>
-
-                    <!-- Project description -->
                     <div class="project-information">
                         <h3 class="project-title">Guess It</h3>
                         <p class="project-description">
-                            My first Vibe coded project! A simple guessing game.
+                            My first Vibe coded project. A simple guessing game.
                         </p>
-                        <a href="https://guess-it-a5eq.onrender.com" class="button-link" target="_blank">VISIT</a>
+                        <a href="https://guess-it-a5eq.onrender.com" class="snake-button" target="_blank">
+                            <span class="button-text">VISIT</span>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Second Project -->
                 <div class="project-card">
                     <div class="project-image">
                         <img src="images/chopperPlaceholder.png" alt="Chopper Placeholder"/>
@@ -154,44 +123,44 @@
                         <p class="project-description">
                             ONE PIECE IS A PLACEHOLDER FOR NOW XD.
                         </p>
-                        <a href="#projects" class="button-link">VISIT</a>
+                        <a href="#projects" class="snake-button">
+                            <span class="button-text">VISIT</span>
+                        </a>
                     </div>
                 </div>
 
             </div>
         </section>
 
-        <!-- CONTACT SECTION -->
         <section class="section contact-section" id="contact">
             <div class="section-container">
                 <h2 class="section-title">CONTACT</h2>
-                <p class="section-subtitle">Feel free to Contact me!</p>
+                <p class="section-subtitle">Feel free to reach out!</p>
 
-                <!-- Form container -->
                 <div class="contact-box">
                     <form action="#" class="contact-form" id="myContactForm" novalidate>
 
-                        <!-- Input: Name -->
+                        <input type="hidden" name="access_key" value="ee7dd7a0-d3e8-4e0b-a788-2a349d277a2b">
+
                         <div class="input-group">
                             <label for="name">Name</label>
-                            <input type="text" id="name" placeholder="Enter Your Name" required />
+                            <input type="text" id="name" name="name" placeholder="Enter Your Name" required />
                         </div>
 
-                        <!-- Input: Email -->
                         <div class="input-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" placeholder="Enter Your Email" required />
+                            <input type="email" id="email" name="email" placeholder="Enter Your Email" required />
                         </div>
 
-                        <!-- Input: Message -->
                         <div class="input-group">
                             <label for="message">Message</label>
-                            <textarea id="message" placeholder="Enter Your Message" required></textarea>
+                            <textarea id="message" name="message" placeholder="Enter Your Message" required></textarea>
                         </div>
 
-                        <!-- Submit Button -->
                         <div class="submit-button-container">
-                            <button type="submit" class="button-submit">SUBMIT</button>
+                            <button type="submit" class="snake-button">
+                                <span class="button-text">SUBMIT</span>
+                            </button>
                         </div>
 
                     </form>
@@ -200,14 +169,10 @@
         </section>
     </main>
 
-    <!-- ================= FOOTER ================= -->
     <footer class="footer">
         <div class="footer-content">
-
-            <!-- Social Links -->
             <div class="footer-socials">
                 <h3 class="footer-title">SOCIALS</h3>
-
                 <div class="footer-icons">
                     <a href="https://github.com/L4wrenzzz" target="_blank">
                         <img src="images/github-icon.png" alt="GitHub" class="social-image">
@@ -217,16 +182,17 @@
                     </a>
                 </div>
             </div>
-
-            <!-- Copyright -->
             <div class="footer-copyright">
-                <p>&copy; Copyright 2026. Made by Jhon Lorrence D. Sangalang</p>
+                <p>&copy; Copyright 2026. Made by Jhon Lorrence Sangalang</p>
             </div>
-
         </div>
     </footer>
 
-    <!-- Link JavaScript -->
-    <script src="js/script.js"></script>
+    <div id="notificationToast" class="notification-toast">
+        <span id="notificationMessage" class="notification-message"></span>
+    </div>
+
+    <script src="js/particles.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
