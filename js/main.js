@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 // Status 200 means HTTP OK (Success)
                 if (apiResponse.status === 200) {
-                    displayNotificationToast("Awesome! Your message has been sent.", "success");
+                    displayNotificationToast("Your message has been sent.", "success");
                     userContactFormElement.reset(); // Clear out the form fields
                 } else {
                     // If the server rejected it for some reason, show the error message provided by the API
