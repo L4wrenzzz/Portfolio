@@ -145,22 +145,26 @@
                         <div class="input-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="name" placeholder="Enter Your Name" required />
+                            <span class="input-error-message" id="nameErrorMessage"></span>
                         </div>
 
                         <div class="input-group">
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email" placeholder="Enter Your Email" required />
+                            <span class="input-error-message" id="emailErrorMessage"></span>
                         </div>
 
                         <div class="input-group">
                             <label for="message">Message</label>
                             <textarea id="message" name="message" placeholder="Enter Your Message" required></textarea>
+                            <span class="input-error-message" id="messageErrorMessage"></span>
                         </div>
 
                         <div class="submit-button-container">
                             <button type="submit" class="snake-button">
                                 <span class="button-text">SUBMIT</span>
                             </button>
+                            <div id="formStatusMessage" class="form-status-message"></div>
                         </div>
 
                     </form>
@@ -187,10 +191,6 @@
             </div>
         </div>
     </footer>
-
-    <div id="notificationToast" class="notification-toast">
-        <span id="notificationMessage" class="notification-message"></span>
-    </div>
 
     <script src="js/particles.js"></script>
     <script src="js/main.js"></script>

@@ -1,7 +1,6 @@
 /* ==========================================================================
     1. GLOBAL VARIABLES & RESETS
    ========================================================================== */
-/* :root declares CSS variables globally so they can be reused easily. If you want to change a theme color later, you only change it here once. */
 :root {
     /* Background Colors */
     --background-dark: #0f0f12;
@@ -22,7 +21,6 @@
     --accent-gradient: linear-gradient(to right, var(--accent-blue), var(--accent-purple), var(--accent-pink));
 }
 
-/* The universal selector (*) resets margins, padding, and forces border-box sizing across all elements for easier layout calculations */
 * {
     margin: 0;
     padding: 0;
@@ -30,7 +28,6 @@
 }
 
 html {
-    /* Enables native smooth scrolling when clicking anchor links in the nav */
     scroll-behavior: smooth;
 }
 
@@ -47,11 +44,9 @@ header {
     width: 100%;
     height: 80px;
     background-color: var(--header-background);
-    /* fixed position keeps it glued to the top of the screen as you scroll */
     position: fixed;
     top: 0;
     left: 0;
-    /* z-index ensures it sits visually on top of all other content */
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
 }
@@ -61,7 +56,6 @@ header {
     height: 100%;
     margin: 0 auto;
     padding: 0 50px;
-    /* Flexbox used to push logo to the left and nav links to the right */
     display: flex;
     justify-content: space-between; 
     align-items: center;
@@ -76,12 +70,11 @@ header {
 .header-logo-image {
     width: 50px;
     height: 50px;
-    border-radius: 50%; /* Makes the container perfectly round */
+    border-radius: 50%;
     margin-right: 15px;
-    overflow: hidden; /* Ensures the square image inside doesn't poke out of the rounded corners */
+    overflow: hidden;
 }
 
-/* Forces the image to cover the full container without warping */
 .header-logo-image img {
     width: 100%;
     height: 100%;
@@ -99,18 +92,17 @@ header {
 .header-navigation ul {
     display: flex;
     gap: 40px;
-    list-style: none; /* Removes bullet points */
+    list-style: none;
 }
 
 .header-navigation a {
-    text-decoration: none; /* Removes underline */
+    text-decoration: none;
     font-size: 16px;
     font-weight: bold;
     color: var(--text-primary);
-    transition: all 0.3s ease; /* Smooth transition when hovering */
+    transition: all 0.3s ease;
 }
 
-/* Hover effect for links: applies the gradient background but clips it to only show through the text shape */
 .header-navigation a:hover {
     background: var(--accent-gradient);
     -webkit-background-clip: text;
@@ -119,7 +111,6 @@ header {
     color: transparent;
 }
 
-/* Hamburger icon hidden on desktop, revealed in media query for mobile */
 .mobile-menu-icon {
     display: none;
     cursor: pointer;
@@ -134,7 +125,6 @@ header {
     display: block;
 }
 
-/* The actual checkbox used to control state, hidden from view */
 #menu-toggle {
     display: none;
 }
@@ -142,16 +132,15 @@ header {
 /* ==========================================================================
     3. MAIN BACKGROUND & SECTIONS
    ========================================================================== */
-/* Canvas needs to sit behind everything, fixed to the screen */
 #particleCanvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1; /* Pushes it to the back layer */
+    z-index: -1;
     background-color: var(--background-dark);
-    pointer-events: none; /* Allows clicks to pass through the canvas to elements underneath */
+    pointer-events: none;
 }
 
 .main-content {
@@ -162,16 +151,14 @@ header {
 .section {
     padding: 80px 20px;
     text-align: center;
-    /* scroll-margin-top ensures the fixed header doesn't cover section titles when anchor links jump down */
     scroll-margin-top: 100px;
 }
 
 .section-container {
     max-width: 1172px;
-    margin: 0 auto; /* Centers the container horizontally */
+    margin: 0 auto;
 }
 
-/* Applies the gradient text effect specifically to the big section headers */
 .section-title {
     font-size: 36px;
     margin-bottom: 10px;
@@ -194,7 +181,6 @@ header {
 /* ==========================================================================
     4. UNIFIED ANIMATED SNAKE BUTTONS
    ========================================================================== */
-/* Base setup for the animated border button */
 .snake-button {
     position: relative;
     display: inline-flex;
@@ -208,13 +194,12 @@ header {
     text-decoration: none;
     border: none;
     border-radius: 5px;
-    overflow: hidden; /* Hides the spinning conic gradient outside the button's shape */
+    overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     cursor: pointer;
     z-index: 1;
 }
 
-/* The pseudo-element that creates the spinning gradient background (the 'snake') */
 .snake-button::before {
     content: '';
     position: absolute;
@@ -222,35 +207,30 @@ header {
     left: 50%;
     width: 300%;
     aspect-ratio: 1; 
-    /* Conic gradient sweeps around a central point */
     background: conic-gradient(from 0deg, transparent 70%, var(--accent-purple) 100%);
-    /* Triggers the keyframe animation created below */
     animation: snake-rotate 3s linear infinite;
-    z-index: -2; /* Sits at the very bottom inside the button */
+    z-index: -2;
 }
 
-/* The inner card shape that blocks out the middle, leaving only the spinning border visible */
 .snake-button::after {
     content: '';
     position: absolute;
-    inset: 3px; /* Creates the 3px border gap where the 'snake' shines through */
+    inset: 3px;
     background-color: var(--background-card);
     border-radius: 2px;
-    z-index: -1; /* Sits above the spinning gradient but below the text */
+    z-index: -1;
     transition: background-color 0.3s ease;
 }
 
-/* When hovering, darken the inner body of the button slightly */
 .snake-button:hover::after {
     background-color: var(--background-input-focus);
 }
 
 .button-text {
     position: relative;
-    z-index: 1; /* Ensures text is on top of the inner card */
+    z-index: 1;
 }
 
-/* Keyframe definition for the continuous 360-degree spin */
 @keyframes snake-rotate {
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
@@ -259,11 +239,10 @@ header {
 /* ==========================================================================
     5. SECTIONS (Home, About, Skills, Projects, Contact)
    ========================================================================== */
-
 /* --- HOME --- */
 .home-section {
-    margin-top: 80px; /* Accounts for fixed header height */
-    min-height: calc(100vh - 80px); /* Takes up full screen height minus header */
+    margin-top: 80px;
+    min-height: calc(100vh - 80px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -328,7 +307,6 @@ header {
 /* --- SKILLS --- */
 .skills-grid {
     display: grid;
-    /* First column is slightly wider (1.5fr) compared to the others to handle the big Python block */
     grid-template-columns: 1.5fr 1fr 1fr;
     gap: 20px;
     max-width: 800px;
@@ -349,25 +327,18 @@ header {
     cursor: default;     
 }
 
-/* Python Glow - Half Blue / Half Yellow */
 .skill-python {
-    /* Forces this card to span the first column and take up 2 rows */
     grid-column: 1 / 2;
     grid-row: 1 / 3;
     font-size: 24px;
     color: var(--text-primary);
-    
-    /* Replaced 135deg with "to bottom right" for a perfect responsive split */
     background: linear-gradient(var(--background-card), var(--background-card)) padding-box,
                 linear-gradient(to bottom right, #3776AB 50%, #FFD43B 50%) border-box;
     border: 2px solid transparent;
-    
-    /* Combined glow: Blue casting up/left, Yellow casting down/right */
     box-shadow: -8px -8px 25px rgba(55, 118, 171, 0.5), 8px 8px 25px rgba(255, 212, 59, 0.5);
 }
 
 .python-text {
-    /* Shifted the split from 50% to 48% to perfectly clear the 'H' */
     background: linear-gradient(to right, #3776AB 48%, #FFD43B 48%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -375,29 +346,24 @@ header {
     color: transparent;
 }
 
-/* JavaScript Glow - Yellow (Static) */
 .skill-js { 
     color: #F7DF1E; 
     border-color: #F7DF1E;
-    /* Outer glow and inner shadow for depth */
     box-shadow: 0 0 20px rgba(247, 223, 30, 0.6), inset 0 0 12px rgba(247, 223, 30, 0.3);
 }
 
-/* SQL Glow - Database Blue (Static) */
 .skill-sql { 
     color: #336791; 
     border-color: #336791;
     box-shadow: 0 0 20px rgba(51, 103, 145, 0.6), inset 0 0 12px rgba(51, 103, 145, 0.3);
 }
 
-/* Go Glow - Cyan (Static) */
 .skill-go { 
     color: #00ADD8; 
     border-color: #00ADD8;
     box-shadow: 0 0 20px rgba(0, 173, 216, 0.6), inset 0 0 12px rgba(0, 173, 216, 0.3);
 }
 
-/* Rust Glow - Orange (Static) */
 .skill-rust { 
     color: #e55315; 
     border-color: #e55315;
@@ -415,7 +381,7 @@ header {
 }
 
 .project-image {
-    flex: 1; /* Allows it to take up proportional space next to information */
+    flex: 1;
     max-width: 500px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     border-radius: 10px;
@@ -424,7 +390,7 @@ header {
 
 .project-image img {
     width: 100%;
-    display: block; /* Removes tiny extra space below image inside container */
+    display: block;
 }
 
 .project-information {
@@ -468,22 +434,22 @@ header {
     color: #dddddd;
 }
 
-/* Targeting both basic inputs and text areas together to keep styles identical */
 .input-group input, .input-group textarea {
     width: 100%;
     padding: 15px;
     background-color: var(--background-input);
     color: var(--text-primary);
-    border: 2px solid transparent; /* Transparent so layout doesn't shift when focused/errored */
+    border: 2px solid transparent; 
     border-radius: 5px;
-    font-family: inherit; /* Ensures it uses the body font instead of default browser input font */
+    font-family: inherit; 
     font-size: 16px;
     outline: none;
+    transition: border-color 0.3s ease;
 }
 
 .input-group textarea {
     height: 150px;
-    resize: none; /* Prevents user from dragging to resize corner */
+    resize: none;
 }
 
 .input-group input:focus, .input-group textarea:focus {
@@ -491,8 +457,39 @@ header {
     border-color: var(--accent-purple);
 }
 
+/* --- INLINE FORM VALIDATION STYLES --- */
+.input-error-message {
+    display: block;
+    color: #d63031;
+    font-size: 14px;
+    margin-top: 8px;
+    min-height: 16px; /* Prevents layout shifting when text appears */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.input-error-message.show {
+    opacity: 1;
+}
+
 .submit-button-container {
     text-align: right;
+}
+
+.form-status-message {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: right;
+    min-height: 20px;
+}
+
+.form-status-message.success {
+    color: #00b894;
+}
+
+.form-status-message.error {
+    color: #d63031;
 }
 
 /* ==========================================================================
@@ -528,7 +525,7 @@ header {
 .social-image {
     width: 30px;
     height: 30px;
-    filter: invert(1); /* Turns black icons white */
+    filter: invert(1);
 }
 
 .footer-copyright {
@@ -544,19 +541,14 @@ header {
 /* ==========================================================================
     7. RESPONSIVENESS (Mobile & Tablet)
    ========================================================================== */
-
-/* Triggers when screen is smaller than 1024px (Tablets) */
 @media (max-width: 1024px) {
     .header-content { padding: 0 30px; }
-    .home-title { font-size: 42px; } /* Shrink main text slightly */
+    .home-title { font-size: 42px; }
 }
 
-/* Triggers when screen is smaller than 768px (Mobile phones) */
 @media (max-width: 768px) {
-    /* Show the hamburger menu icon */
     .mobile-menu-icon { display: flex; }
 
-    /* Hide standard nav links and set them up as a dropdown menu */
     .header-navigation {
         display: none;
         position: absolute;
@@ -568,10 +560,8 @@ header {
         padding: 20px 0;
     }
 
-    /* CSS Trick: If the hidden checkbox is checked, force the nav to display block */
     #menu-toggle:checked ~ .header-navigation { display: block; }
 
-    /* Stack links vertically in the dropdown */
     .header-navigation ul {
         flex-direction: column;
         gap: 20px;
@@ -580,7 +570,6 @@ header {
         padding-left: 0;
     }
 
-    /* Stack the hero section items (image on top, text below) */
     .home-introduction {
         flex-direction: column;
         text-align: center;
@@ -596,68 +585,17 @@ header {
         padding: 0 20px;
     }
 
-    /* Force the skill grid into a single vertical column */
     .skills-grid { grid-template-columns: 1fr; }
 
-    /* Reset the Python block so it behaves like a normal single item on mobile */
     .skill-python {
         grid-column: auto;
         grid-row: auto;
     }
 
-    /* Stack project cards vertically (image top, info bottom) */
     .project-card {
         flex-direction: column;
         text-align: center;
     }
 
     .project-information { text-align: center; }
-}
-
-/* ==========================================================================
-    8. NOTIFICATION TOAST
-   ========================================================================== */
-.notification-toast {
-    position: fixed;
-    /* Hide off-screen by pushing it up 100px */
-    top: -100px; 
-    left: 50%;
-    /* -50% translation perfectly centers fixed items when combined with left:50% */
-    transform: translateX(-50%); 
-    background-color: var(--background-card);
-    color: var(--text-primary);
-    padding: 15px 30px;
-    border-radius: 8px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.6);
-    z-index: 2000; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 16px;
-    /* Cubic bezier creates a slight bounce effect when animating in */
-    transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-    border: 3px solid transparent; 
-}
-
-/* Class appended by JavaScript to trigger the animation */
-.notification-toast.show {
-    top: 40px; /* Brings it on-screen at the top */
-}
-
-/* Dynamic classes added by JS based on success/fail context */
-.notification-toast.success {
-    border-color: #00b894; /* Green indicator border on all sides */
-}
-
-.notification-toast.error {
-    border-color: #d63031; /* Red indicator border on all sides */
-}
-
-@media (max-width: 768px) {
-    .notification-toast {
-        width: 90%; 
-        text-align: center;
-        padding: 15px 20px;
-    }
 }
