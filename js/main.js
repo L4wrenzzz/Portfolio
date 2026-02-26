@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // ==========================================
             
             // Give the user visual feedback that the network request is happening
-            submitButtonTextElement.innerText = "SENDING...";
+            submitButtonTextElement.innerText = "SENDING";
             
             // FormData is a built-in JS object that automatically extracts the names and values from our inputs
             const formSubmissionDataObject = new FormData(userContactFormElement);
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // HTTP Status 200 means OK/Success
                 if (apiResponse.status === 200) {
                     // Update the status message div to show success
-                    formStatusMessageElement.innerText = "Awesome! Your message has been sent.";
+                    formStatusMessageElement.innerText = "Your message has been sent.";
                     formStatusMessageElement.classList.add('success'); // Turns text green
                     userContactFormElement.reset(); // Empties all the input fields
                 } else {
