@@ -1,12 +1,14 @@
 /* ==========================================================================
     1. GLOBAL VARIABLES & RESETS
    ========================================================================== */
+/* The :root selector defines CSS variables globally, making it easy to change a theme color in one place. */
 :root {
-    /* Background Colors */
+    /* Background Colors for different sections of the layout */
     --background-dark: #0f0f12;
     --background-card: #1c1c24;
     --background-input: #252530;
     --background-input-focus: #2d2d3a;
+    /* rgba is used here to give the header a slight 5% transparency (0.95 opacity) */
     --header-background: rgba(15, 15, 18, 0.95);
     
     /* Text Colors */
@@ -14,26 +16,32 @@
     --text-secondary: #b0b0b0;
     --text-muted: #888888;
     
-    /* Brand Colors & Gradients for specific accents */
+    /* Brand Colors & Gradients used for special text and button borders */
     --accent-blue: #4a88ff;
     --accent-purple: #9b51e0;
     --accent-pink: #ff4a9e;
     --accent-gradient: linear-gradient(to right, var(--accent-blue), var(--accent-purple), var(--accent-pink));
 }
 
+/* The universal selector (*) targets every single element on the page. */
 * {
+    /* Resets default browser margins and padding so we have full control */
     margin: 0;
     padding: 0;
+    /* box-sizing: border-box ensures padding and borders are included in the element's total width/height */
     box-sizing: border-box;
 }
 
 html {
+    /* Enables native smooth scrolling when you click a navigation link that jumps down the page */
     scroll-behavior: smooth;
 }
 
 body {
+    /* Sets the default font for the entire website */
     font-family: Arial, sans-serif;
     position: relative;
+    /* Applies the secondary text color as the default text color */
     color: var(--text-secondary);
 }
 
@@ -44,18 +52,25 @@ header {
     width: 100%;
     height: 80px;
     background-color: var(--header-background);
+    /* fixed position keeps the header glued to the top of the viewport even when scrolling */
     position: fixed;
     top: 0;
     left: 0;
+    /* z-index: 1000 places the header visually on top of all other elements so it doesn't get covered */
     z-index: 1000;
+    /* Adds a subtle white shadow underneath the header for depth */
     box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
 }
 
 .header-content {
+    /* Limits the maximum width of the header content on very large screens */
     max-width: 1500px;
     height: 100%;
+    /* margin: 0 auto centers the container horizontally */
     margin: 0 auto;
+    /* Adds left and right padding so content doesn't touch the edges */
     padding: 0 50px;
+    /* Flexbox is used to easily align the logo on the left and navigation on the right */
     display: flex;
     justify-content: space-between; 
     align-items: center;
@@ -64,53 +79,68 @@ header {
 .header-logo {
     display: flex;
     align-items: center;
+    /* Changes the mouse cursor to a pointing hand to indicate it is clickable */
     cursor: pointer;
 }
 
 .header-logo-image {
     width: 50px;
     height: 50px;
+    /* border-radius: 50% turns a square container into a perfect circle */
     border-radius: 50%;
     margin-right: 15px;
+    /* overflow: hidden ensures the image inside doesn't poke out of the circular corners */
     overflow: hidden;
 }
 
 .header-logo-image img {
+    /* Forces the image to fill the 50x50 container */
     width: 100%;
     height: 100%;
+    /* object-fit: cover scales the image proportionally to cover the area without warping it */
     object-fit: cover;
 }
 
 .header-logo-text {
     font-size: 16px;
     font-weight: bold;
+    /* Forces the text to be ALL CAPS regardless of how it was typed in HTML */
     text-transform: uppercase;
+    /* Adds space between the letters for a modern look */
     letter-spacing: 1px;
     color: var(--text-primary);
 }
 
 .header-navigation ul {
     display: flex;
+    /* gap applies exactly 40px of space between each navigation item */
     gap: 40px;
+    /* Removes the default bullet points from the list */
     list-style: none;
 }
 
 .header-navigation a {
+    /* Removes the default underline from the anchor links */
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
     color: var(--text-primary);
+    /* transition makes the color change smooth when hovering over the link */
     transition: all 0.3s ease;
 }
 
+/* The :hover pseudo-class activates when the mouse pointer is over the link */
 .header-navigation a:hover {
+    /* Applies the multi-color gradient to the background of the text */
     background: var(--accent-gradient);
+    /* The next three lines clip the background gradient so it only shows through the shape of the text */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
 }
 
+/* This is the hamburger menu icon wrapper, hidden on desktop screens */
 .mobile-menu-icon {
     display: none;
     cursor: pointer;
@@ -118,6 +148,7 @@ header {
     gap: 5px;
 }
 
+/* The individual lines of the hamburger menu icon */
 .bar {
     width: 25px;
     height: 3px;
@@ -125,6 +156,7 @@ header {
     display: block;
 }
 
+/* Hides the actual HTML checkbox that we use to toggle the mobile menu state */
 #menu-toggle {
     display: none;
 }
@@ -136,21 +168,26 @@ header {
     position: fixed;
     top: 0;
     left: 0;
+    /* 100vw/vh ensures the canvas covers 100% of the viewport width and height */
     width: 100vw;
     height: 100vh;
+    /* z-index: -1 places the canvas on the bottom-most layer, behind all other content */
     z-index: -1;
     background-color: var(--background-dark);
+    /* pointer-events: none allows mouse clicks to pass through the canvas to the buttons underneath */
     pointer-events: none;
 }
 
 .main-content {
     width: 100%;
+    /* Transparent so the particle canvas behind it remains visible */
     background-color: transparent;
 }
 
 .section {
     padding: 80px 20px;
     text-align: center;
+    /* scroll-margin-top ensures the fixed header (80px tall) doesn't cover the top of the section when clicking a nav link */
     scroll-margin-top: 100px;
 }
 
@@ -165,6 +202,7 @@ header {
     text-transform: uppercase;
     letter-spacing: 2px;
     display: inline-block;
+    /* Reuses the same background-clip text trick from the nav links to make the title text a gradient */
     background: var(--accent-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -182,6 +220,7 @@ header {
     4. UNIFIED ANIMATED SNAKE BUTTONS
    ========================================================================== */
 .snake-button {
+    /* position: relative allows us to position the pseudo-elements (::before/::after) absolute to this button */
     position: relative;
     display: inline-flex;
     justify-content: center;
@@ -194,44 +233,56 @@ header {
     text-decoration: none;
     border: none;
     border-radius: 5px;
+    /* overflow: hidden is critical here; it chops off the spinning gradient outside the button's rounded rectangle shape */
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     cursor: pointer;
     z-index: 1;
 }
 
+/* ::before creates an invisible element inside the button that holds the spinning gradient */
 .snake-button::before {
     content: '';
     position: absolute;
+    /* Centers the element perfectly */
     top: 50%;
     left: 50%;
+    /* Makes the gradient block much larger than the button so it can spin without showing its corners */
     width: 300%;
     aspect-ratio: 1; 
+    /* A conic gradient sweeps colors around a central point (like a radar sweep) */
     background: conic-gradient(from 0deg, transparent 70%, var(--accent-purple) 100%);
+    /* Applies the animation defined below */
     animation: snake-rotate 3s linear infinite;
-    z-index: -2;
+    z-index: -2; /* Puts the spinning colors at the very back */
 }
 
+/* ::after creates a slightly smaller solid card inside the button to cover the middle of the spinning gradient */
 .snake-button::after {
     content: '';
     position: absolute;
+    /* inset: 3px creates a 3px gap between this covering block and the button's edge, creating the "border" effect */
     inset: 3px;
     background-color: var(--background-card);
     border-radius: 2px;
-    z-index: -1;
+    z-index: -1; /* Placed above the gradient, but below the text */
     transition: background-color 0.3s ease;
 }
 
 .snake-button:hover::after {
+    /* Darkens the inner block slightly when hovered */
     background-color: var(--background-input-focus);
 }
 
 .button-text {
     position: relative;
+    /* Ensures the text sits securely on top of the ::after covering block */
     z-index: 1;
 }
 
+/* Defines the keyframes for the rotating gradient animation */
 @keyframes snake-rotate {
+    /* Rotates from 0 degrees to 360 degrees infinitely */
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
@@ -242,6 +293,7 @@ header {
 /* --- HOME --- */
 .home-section {
     margin-top: 80px;
+    /* min-height ensures this section takes up the entire screen height minus the header height */
     min-height: calc(100vh - 80px);
     display: flex;
     justify-content: center;
@@ -264,6 +316,7 @@ header {
 .home-avatar {
     width: 225px;
     height: 225px;
+    /* Creates a semi-transparent white border ring around the profile picture */
     border: 5px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     box-shadow: 0 10px 20px rgba(0,0,0,0.5);
@@ -300,13 +353,16 @@ header {
     font-size: 20px;
     max-width: 800px;
     margin: 0 auto;
+    /* line-height: 1.6 gives the text a bit more vertical breathing room to improve readability */
     line-height: 1.6;
     color: var(--text-secondary);
 }
 
 /* --- SKILLS --- */
 .skills-grid {
+    /* CSS Grid is perfect for aligning items into precise rows and columns */
     display: grid;
+    /* Defines 3 columns. 1.5fr makes the first column 50% wider than the others to accommodate the large Python block */
     grid-template-columns: 1.5fr 1fr 1fr;
     gap: 20px;
     max-width: 800px;
@@ -328,17 +384,22 @@ header {
 }
 
 .skill-python {
+    /* grid-column: 1 / 2 locks this item into the first column */
     grid-column: 1 / 2;
+    /* grid-row: 1 / 3 forces this item to span vertically across two rows */
     grid-row: 1 / 3;
     font-size: 24px;
     color: var(--text-primary);
+    /* Creates the custom split border (blue top-left, yellow bottom-right) */
     background: linear-gradient(var(--background-card), var(--background-card)) padding-box,
                 linear-gradient(to bottom right, #3776AB 50%, #FFD43B 50%) border-box;
     border: 2px solid transparent;
+    /* Casts two separate shadows: a blue one to the top-left, and a yellow one to the bottom-right */
     box-shadow: -8px -8px 25px rgba(55, 118, 171, 0.5), 8px 8px 25px rgba(255, 212, 59, 0.5);
 }
 
 .python-text {
+    /* Splits the text color in half exactly like the border */
     background: linear-gradient(to right, #3776AB 48%, #FFD43B 48%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -346,6 +407,7 @@ header {
     color: transparent;
 }
 
+/* Static glows for the standard single-block skills */
 .skill-js { 
     color: #F7DF1E; 
     border-color: #F7DF1E;
@@ -381,6 +443,7 @@ header {
 }
 
 .project-image {
+    /* flex: 1 tells this container to grow and share the available space equally with the project-information block */
     flex: 1;
     max-width: 500px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
@@ -390,6 +453,7 @@ header {
 
 .project-image img {
     width: 100%;
+    /* display: block removes a tiny, annoying 3px gap that browsers naturally leave under inline images */
     display: block;
 }
 
@@ -434,24 +498,30 @@ header {
     color: #dddddd;
 }
 
+/* We group inputs and textareas together here so they share the exact same visual styling */
 .input-group input, .input-group textarea {
     width: 100%;
     padding: 15px;
     background-color: var(--background-input);
     color: var(--text-primary);
+    /* border is set to transparent so that when we later change it to red (for errors), the layout doesn't shift */
     border: 2px solid transparent; 
     border-radius: 5px;
+    /* font-family: inherit forces the input to use Arial instead of the ugly default browser input font */
     font-family: inherit; 
     font-size: 16px;
+    /* outline: none removes the default blue glow browsers put on focused inputs */
     outline: none;
     transition: border-color 0.3s ease;
 }
 
 .input-group textarea {
     height: 150px;
+    /* resize: none stops the user from clicking and dragging the corner of the text box to change its size */
     resize: none;
 }
 
+/* Changes the background and border color when the user clicks inside the input to type */
 .input-group input:focus, .input-group textarea:focus {
     background-color: var(--background-input-focus);
     border-color: var(--accent-purple);
@@ -463,11 +533,14 @@ header {
     color: #d63031;
     font-size: 14px;
     margin-top: 8px;
-    min-height: 16px; /* Prevents layout shifting when text appears */
+    /* min-height ensures the container is always 16px tall, preventing the layout below from bouncing down when text is added */
+    min-height: 16px; 
+    /* Starts invisible */
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
+/* A utility class appended via JavaScript to fade the error text in */
 .input-error-message.show {
     opacity: 1;
 }
@@ -476,6 +549,7 @@ header {
     text-align: right;
 }
 
+/* Container for the final success or server failure message */
 .form-status-message {
     margin-top: 20px;
     font-weight: bold;
@@ -507,6 +581,7 @@ header {
     margin-bottom: 20px;
     letter-spacing: 2px;
     display: inline-block;
+    /* Gives the footer text the same gradient as the main section titles */
     background: var(--accent-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -525,10 +600,12 @@ header {
 .social-image {
     width: 30px;
     height: 30px;
+    /* filter: invert(1) turns black images completely white, saving us from having to download separate white icon images */
     filter: invert(1);
 }
 
 .footer-copyright {
+    /* Adds a thin gray line above the copyright text */
     border-top: 1px solid #333;
     padding-top: 20px;
     color: #bbb;
@@ -539,18 +616,25 @@ header {
 }
 
 /* ==========================================================================
-    7. RESPONSIVENESS (Mobile & Tablet)
+    7. RESPONSIVENESS (Media Queries for Mobile & Tablet)
    ========================================================================== */
+/* These rules ONLY apply when the screen width is 1024px or smaller (Tablets/Small Laptops) */
 @media (max-width: 1024px) {
+    /* Shrink the side padding so content doesn't get squished */
     .header-content { padding: 0 30px; }
+    /* Slightly reduce the huge home title font size */
     .home-title { font-size: 42px; }
 }
 
+/* These rules ONLY apply when the screen width is 768px or smaller (Mobile Phones) */
 @media (max-width: 768px) {
+    /* Make the 3-line hamburger icon visible */
     .mobile-menu-icon { display: flex; }
 
+    /* Hide the horizontal desktop navigation menu */
     .header-navigation {
         display: none;
+        /* Position it absolute to drop down from the header */
         position: absolute;
         top: 80px;
         left: 0;
@@ -560,8 +644,10 @@ header {
         padding: 20px 0;
     }
 
+    /* CSS Magic: If the hidden checkbox (id="menu-toggle") is checked, find the sibling element (.header-navigation) and display it */
     #menu-toggle:checked ~ .header-navigation { display: block; }
 
+    /* Change the menu links from a horizontal row to a vertical column */
     .header-navigation ul {
         flex-direction: column;
         gap: 20px;
@@ -570,6 +656,7 @@ header {
         padding-left: 0;
     }
 
+    /* Stack the home section elements vertically instead of side-by-side */
     .home-introduction {
         flex-direction: column;
         text-align: center;
@@ -585,13 +672,16 @@ header {
         padding: 0 20px;
     }
 
+    /* Force the CSS grid for skills to collapse into a single vertical column */
     .skills-grid { grid-template-columns: 1fr; }
 
+    /* Remove the special sizing from the Python block so it behaves like the others on mobile */
     .skill-python {
         grid-column: auto;
         grid-row: auto;
     }
 
+    /* Stack the project image and project text vertically */
     .project-card {
         flex-direction: column;
         text-align: center;
