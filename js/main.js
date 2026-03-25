@@ -111,6 +111,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 return; 
             }
     
+            userContactFormElement.reset(); // Empties all the input fields
+            
+            // I'll leave this as a comment for now since I forgot to add it to my mockup.
             // ==========================================
             // API SUBMISSION (Validation Passed)
             // ==========================================
@@ -120,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // submitButtonTextElement.innerText = "SENDING";
             
             // FormData is a built-in JS object that automatically extracts the names and values from our inputs
-            const formSubmissionDataObject = new FormData(userContactFormElement);
+            /*const formSubmissionDataObject = new FormData(userContactFormElement);
 
             // The 'fetch' API sends data over the network to the specified URL.
             fetch("https://api.web3forms.com/submit", {
@@ -135,9 +138,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 // HTTP Status 200 means OK/Success
                 if (apiResponse.status === 200) {
                     // Update the status message div to show success
-                    // I'll leave this as a comment for now since I forgot to add it to my mockup.
-                    //formStatusMessageElement.innerText = "Your message has been sent.";
-                    //formStatusMessageElement.classList.add('success'); // Turns text green
+                    formStatusMessageElement.innerText = "Your message has been sent.";
+                    formStatusMessageElement.classList.add('success'); // Turns text green
                     userContactFormElement.reset(); // Empties all the input fields
                 } else {
                     // If status is not 200, display the specific error the server gave us
@@ -152,12 +154,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error(networkError); // Logs the technical error to the console for debugging
             })
             // .finally() ALWAYS runs at the very end, whether the fetch succeeded or failed
-            // I'll leave this as a comment for now since I forgot to add it to my mockup.
-            /*.finally(() => {
+            .finally(() => {
                 // Change the button text from "SENDING..." back to "SUBMIT"
                 submitButtonTextElement.innerText = originalSubmitButtonText;
-            });
-            */
+            });*/
         });
     }
     
